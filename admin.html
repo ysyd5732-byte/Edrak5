@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Edrak AI - لوحة التحكم</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <!-- LOGIN -->
+    <div id="loginScreen" class="login-screen">
+
+        <div class="login-box">
+
+            <div class="admin-logo">
+                E
+            </div>
+
+            <h1>Edrak AI</h1>
+
+            <p>
+                لوحة تحكم المدير
+            </p>
+
+            <form id="adminLoginForm">
+
+                <div class="input-group">
+
+                    <label>البريد الإلكتروني</label>
+
+                    <input
+                        id="adminEmail"
+                        type="email"
+                        placeholder="admin@edrak.local"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>كلمة المرور</label>
+
+                    <input
+                        id="adminPassword"
+                        type="password"
+                        placeholder="كلمة المرور"
+                        required
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                >
+                    دخول لوحة التحكم
+                </button>
+
+                <div id="loginError" class="error-message"></div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADMIN APP -->
+
+    <div
+        id="adminApp"
+        class="admin-app hidden"
+    >
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    E
+                </div>
+
+                <div>
+                    <strong>Edrak</strong>
+                    <span>ADMIN PANEL</span>
+                </div>
+
+            </div>
+
+
+            <nav>
+
+                <button
+                    class="nav-item active"
+                    data-section="dashboard"
+                >
+                    📊
+                    <span>الرئيسية</span>
+                </button>
+
+                <button
+                    class="nav-item"
+                    data-section="users"
+                >
+                    👥
+                    <span>المستخدمين</span>
+                </button>
+
+                <button
+                    class="nav-item"
+                    data-section="chats"
+                >
+                    💬
+                    <span>المحادثات</span>
+                </button>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <button
+                    id="refreshBtn"
+                    class="side-button"
+                >
+                    🔄 تحديث البيانات
+                </button>
+
+                <button
+                    id="logoutBtn"
+                    class="side-button logout"
+                >
+                    🚪 تسجيل الخروج
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN -->
+
+        <main class="main">
+
+            <!-- TOPBAR -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <h1 id="pageTitle">
+                        لوحة التحكم
+                    </h1>
+
+                    <p>
+                        إدارة منصة Edrak AI
+                    </p>
+
+                </div>
+
+                <div class="admin-badge">
+                    👑 ADMIN
+                </div>
+
+            </header>
+
+
+            <!-- DASHBOARD -->
+
+            <section
+                id="dashboardSection"
+                class="section active"
+            >
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon purple">
+                            👥
+                        </div>
+
+                        <div>
+
+                            <span>
+                                المستخدمين
+                            </span>
+
+                            <strong id="usersCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon blue">
+                            💬
+                        </div>
+
+                        <div>
+
+                            <span>
+                                المحادثات
+                            </span>
+
+                            <strong id="chatsCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon green">
+                            📨
+                        </div>
+
+                        <div>
+
+                            <span>
+                                الرسائل
+                            </span>
+
+                            <strong id="messagesCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h2>
+                                آخر المستخدمين
+                            </h2>
+
+                            <p>
+                                أحدث الحسابات المسجلة
+                            </p>
+
+                        </div>
+
+                        <button
+                            class="small-btn"
+                            onclick="showSection('users')"
+                        >
+                            عرض الكل
+                        </button>
+
+                    </div>
+
+                    <div id="recentUsers">
+                        جاري التحميل...
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h2>
+                                آخر المحادثات
+                            </h2>
+
+                            <p>
+                                أحدث المحادثات
+                            </p>
+
+                        </div>
+
+                        <button
+                            class="small-btn"
+                            onclick="showSection('chats')"
+                        >
+                            عرض الكل
+                        </button>
+
+                    </div>
+
+                    <div id="recentChats">
+                        جاري التحميل...
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- USERS -->
+
+            <section
+                id="usersSection"
+                class="section"
+            >
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            👥 المستخدمين
+                        </h2>
+
+                        <p>
+                            إدارة حسابات مستخدمي Edrak AI
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="refresh-button"
+                        onclick="loadUsers()"
+                    >
+                        🔄 تحديث
+                    </button>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    ID
+                                </th>
+
+                                <th>
+                                    المستخدم
+                                </th>
+
+                                <th>
+                                    البريد
+                                </th>
+
+                                <th>
+                                    تاريخ التسجيل
+                                </th>
+
+                                <th>
+                                    الإجراء
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="usersTable">
+
+                            <tr>
+
+                                <td
+                                    colspan="5"
+                                    class="loading"
+                                >
+                                    جاري تحميل المستخدمين...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- CHATS -->
+
+            <section
+                id="chatsSection"
+                class="section"
+            >
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            💬 المحادثات
+                        </h2>
+
+                        <p>
+                            مشاهدة وإدارة محادثات المستخدمين
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="refresh-button"
+                        onclick="loadChats()"
+                    >
+                        🔄 تحديث
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="chatsContainer"
+                    class="chats-container"
+                >
+
+                    جاري تحميل المحادثات...
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- MESSAGES MODAL -->
+
+    <div
+        id="messagesModal"
+        class="modal"
+    >
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2 id="modalTitle">
+                        المحادثة
+                    </h2>
+
+                    <p id="modalUser">
+                        المستخدم
+                    </p>
+
+                </div>
+
+                <button
+                    id="closeModal"
+                    class="close-btn"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div
+                id="modalMessages"
+                class="modal-messages"
+            >
+
+                جاري تحميل الرسائل...
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>
+<script src="config.js"></script>
+<script src="admin.js"></script>
